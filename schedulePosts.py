@@ -2,16 +2,21 @@
 import praw             # Reddit wrapper: https://praw.readthedocs.io
 import datetime         # Module to keep track of dates
 import pytz             # Module for different timezones
-from time import sleep  # This imports a single function that 
-import json
+from time import sleep  # This imports a single function that tells the program to wait (sleep) for a while
+import json             # Module for saving a dictionary following a known standard
 
 def parsedString(string):
+	"""This is a function that takes a string and creates a aware datetime."""
 	parsed_date = datetime.datetime.strptime(string,'%Y - %m - %d - %I:%M %p')
 	return parsed_date.replace(tzinfo=dummydate.tzinfo)
 
 def makePost(sub,titl,selftxt):
+	"""This function makes a post with title:titl and selftext:selftxt on the subreddit:sub
+		It also stickies that submission and unstickies the previous sub that IT stickied. It does nothing to 
+		submissions that it did not post"""
 	subreddit = reddit.subreddit(sub)
 	try:
+		# This tries to unstick the previous submission that the bot made sticky
 		with open("old"+sub+"Sticky.txt","r") as g:
 			oldSticky = g.read()
 		oldsubmission = reddit.submission(id=oldSticky)
@@ -19,11 +24,12 @@ def makePost(sub,titl,selftxt):
 	except FileNotFoundError:
 		pass
 
-	newsubmission = subreddit.submit(titl,selftext=selftxt)
-	newsubmission.mod.sticky(state=True)
+	newsubmission = subreddit.submit(titl,selftext=selftxt) #This makes the post
+	newsubmission.mod.sticky(state=True) # This makes it sticky
 
 	with open("old"+sub+"Sticky.txt","w") as g:
-		g.write(newsubmission.id)
+		# This saves the post's ID so it can unsticky it in the future
+		g.write(newsubmission.id) 
 
 reddit = praw.Reddit('bot1')
 timeZone = 'US/Eastern' # Google "pytz timezones" for other options
@@ -31,10 +37,10 @@ dummydate = datetime.datetime.now(tz=pytz.timezone(timeZone)) # This is needed f
 sleepTime = 3600   #Time (in seconds) the program will wait to loop again
 
 while True:
-
 	try:
 		with open("schedule.txt","r") as f:
-			dateDictionary = json.load(f)
+			#This loads the json dictionary
+			dateDictionary = json.load(f) # If the console says there's an error here then the format of the file was probably messed up
 	except FileNotFoundError:
 		print("Error. File 'schedule.txt' not found.")
 		raise FileNotFoundError
@@ -51,8 +57,8 @@ while True:
 				foundadate = True
 				# If an unannounced date has already passed, it means that it must have just passed moments ago. 
 				# So it means it's now time to make the post
-				# First it makes the post on evvthunderbolts
-				makePost('botlamptestsub',scheduledSubm['title'],scheduledSubm['selftext']) 
+				makePost('evvthunderbolts',scheduledSubm['title'],scheduledSubm['selftext']) 
+				makePost('IndyFuel',scheduledSubm['title'],scheduledSubm['selftext']) 
 				m1 = "\nMade a post in evvthunderbolts and IndyFuel at <{}>\n".format(currentTime)
 				m2 = "With title: <{}>\n".format(scheduledSubm['title'])
 				m3 = "Selftext: <{}>\n\n".format(scheduledSubm['selftext'])
