@@ -4,31 +4,37 @@
       "date": "2017 - 12 - 03 - 08:30 PM",
       "title": "TITLE_STRING",
       "selftext": "POST_SELFTEXT",
-      "announced": true
+      "announced": true,
+      "for_evansville": true
+
     },
     {
       "date": "2020 - 12 - 03 - 08:30 PM",
       "title": "GHASS?",
       "selftext": "LESSASS",
-      "announced": false
+      "announced": false,
+      "for_evansville": false
     },
     {
       "date": "2017 - 05 - 03 - 08:30 PM",
       "title": "TASS!",
       "selftext": "LASS",
-      "announced": true
+      "announced": true,
+      "for_evansville": true
     },
     {
       "date": "2015 - 05 - 03 - 08:30 PM",
       "title": "FINALTEST!",
       "selftext": "LASSASASASA  \n\nMoreTEXTmoreText  \n\n * Testing Reddit format  \n * And so on",
-      "announced": true
+      "announced": true,
+      "for_evansville": false
     },
     {
-      "date": "2018 - 10 - 13 - 07:30 PM",
-      "title": "SECOND_TEST_TITLE",
+      "date": "2010 - 01 - 13 - 07:30 PM",
+      "title": "FINAL STRING DO NOT DELETE",
       "selftext": "SECOND_TEST_SELFTEXT",
-      "announced": true
+      "announced": true,
+      "for_evansville": true
     }
   ]
 }
