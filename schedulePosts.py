@@ -57,11 +57,17 @@ while True:
 				foundadate = True
 				# If an unannounced date has already passed, it means that it must have just passed moments ago. 
 				# So it means it's now time to make the post
-				makePost('evvthunderbolts',scheduledSubm['title'],scheduledSubm['selftext']) 
-				makePost('IndyFuel',scheduledSubm['title'],scheduledSubm['selftext']) 
-				m1 = "\nMade a post in evvthunderbolts and IndyFuel at <{}>\n".format(currentTime)
-				m2 = "With title: <{}>\n".format(scheduledSubm['title'])
-				m3 = "Selftext: <{}>\n\n".format(scheduledSubm['selftext'])
+				if scheduledSubm['for_evansville'] == True:
+					makePost('evvthunderbolts',scheduledSubm['title'],scheduledSubm['selftext']) 
+					m1 = "\nMade a post in evvthunderbolts at <{}>\n".format(currentTime)
+					m2 = "With title: <{}>\n".format(scheduledSubm['title'])
+					m3 = "Selftext: <{}>\n\n".format(scheduledSubm['selftext'])
+				else:
+					makePost('IndyFuel',scheduledSubm['title'],scheduledSubm['selftext']) 
+					m1 = "\nMade a post in IndyFuel at <{}>\n".format(currentTime)
+					m2 = "With title: <{}>\n".format(scheduledSubm['title'])
+					m3 = "Selftext: <{}>\n\n".format(scheduledSubm['selftext'])
+		
 				print(m1+m2+m3) # This is just a message for the console to see if the post was made
 				scheduledSubm['announced'] = True
 	if (foundadate == False):
